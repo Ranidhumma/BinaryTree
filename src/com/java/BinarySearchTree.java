@@ -1,76 +1,38 @@
 package com.java;
 
-import java.util.Scanner;
-
 public class BinarySearchTree {
 
-	static Scanner scanner = null;
-
-	/* main function */
-
-	public static void main(String[] args) {
-		scanner = new Scanner(System.in);
-		Node root = CreateTree();
-		System.out.println("welcome");
-		inOrder(root);
-		System.out.println();
-		preOrder(root);
-		System.out.println();
-		postOrder(root);
-		System.out.println();
-
-	}
-
-	/* created CreateTree Method , consider initial root value is null */
-
-	public static Node CreateTree() {
-		Node root = null;
-
-		System.out.println("Enter data: ");
-		int data = scanner.nextInt(); // got data
-
-		if (data == -1) {
-			// System.out.println("null");
-			return null;
+	public Node insert(Node node, int val) {
+		if (node == null) {
+			return CreateTree(val);
 		}
-		root = new Node(data); // created node
-
-		System.out.println("enter left for " + data);
-		root.left = CreateTree();
-
-		System.out.println("enter right for " + data);
-		root.right = CreateTree();
-
-		return root;
+		if (val < node.data) {
+			node.left = insert(node.left, val);
+		} else if (val > node.data) {
+			node.right = insert(node.right, val);
+		}
+		return node;
 
 	}
 
-	/* inOrder */
-	static void inOrder(Node root) {
+	public Node CreateTree(int k) {
+
+		Node a = new Node();
+		a.data = k;
+		a.left = null;
+		a.right = null;
+		return a;
+	}
+
+	public static void inOrder(Node root) {
+		// TODO Auto-generated method stub
+
 		if (root == null)
 			return;
 
 		inOrder(root.left);
 		System.out.print(root.data + " ");
 		inOrder(root.right);
-	}
 
-	/* preOrder */
-	public static void preOrder(Node root) {
-		if (root == null)
-			return;
-		System.out.print(root.data + " ");
-		preOrder(root.left);
-		preOrder(root.right);
-	}
-
-	/* postOrder */
-	public static void postOrder(Node root) {
-		if (root == null)
-			return;
-
-		postOrder(root.left);
-		postOrder(root.right);
-		System.out.print(root.data + " ");
 	}
 }
